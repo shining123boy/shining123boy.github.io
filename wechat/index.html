@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta charset="UTF-8">
+    <title>欧弟</title>
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+
+<body>
+    <div class="main translate" id="main">
+        <div class="content" id="content">
+        </div>
+        
+    </div>
+    <div class="footer">
+        <img src="src/record_btn.png" class="foot-btn record-btn">
+        <input type="text" class="input" id="input" disabled="disabled" />
+        <img src="src/face_icon.png" class="foot-btn face-icon">
+        <img src="src/more_icon.png" class="foot-btn more-icon">
+    </div>
+    <div class="pop-box" id="pop-box"></div>
+    <div class="full-box">
+        <img src="src/close.png" alt="" class="close">
+        <!-- <img src="src/cover1.png" class="full-img"> -->
+        <video src="src/video1.mp4" controls preload="auto" class="full-video" id="full_video"></video>
+    </div>
+    <audio id="sound" src="src/msg.mp3" preload="preload">您的浏览器不支持 audio标签。</audio>
+    
+
+
+    <script src="js/zepto.min.js"></script>
+    <script type="text/javascript" src="js/iscroll-lite.js"></script>
+    <script src="js/chat.js"></script>
+
+</body>
+
+</html>

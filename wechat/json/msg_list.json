@@ -1,0 +1,176 @@
+{
+    "wordList": [{
+        "msg_type": 1,
+        "msg_from": 1,
+        "msg_video_cover": "",
+        "msg_content": "萨瓦迪卡！我是欧弟，我现在在泰国～～泰国好美啊～emoji5",
+        "msg_reply_choice": false
+    }, {
+        "msg_type": 3,
+        "msg_from": 1,
+        "msg_video_cover": "src/cover1.png",
+        "msg_video_src": "src/video1.mp4",
+        "msg_content": "",
+        "msg_reply_choice": true,
+        "msg_reply": [{
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "哇！欧弟哥！你居然跑到泰国去嗨了，最近不忙吗？",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "忙啊！最近一直在拍电影，抽空来泰国放松一下啦~emoji4",
+                "msg_reply_choice": false
+            }]
+        }, {
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "啊啊啊～欧弟～欧弟～真的是 你吗 ？？？",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "是啊！是啊！是我啊！",
+                "msg_reply_choice": false
+            }]
+        }]
+    }, {
+        "msg_type": 1,
+        "msg_from": 1,
+        "msg_video_cover": "",
+        "msg_content": "泰国的水上市场好热闹啊，都是撑着小船买卖东西诶~",
+        "msg_reply_choice": true,
+        "msg_reply": [{
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "这么高级？！快给我看看~",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "真的喔～，视频发你~",
+                "msg_reply_choice": false
+            }]
+        }, {
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "是啊～泰国的水上市场很有名的～",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "是吗？！！发现好多有趣的东西呢～",
+                "msg_reply_choice": false
+            }]
+        }]
+    },{
+        "msg_type": 3,
+        "msg_from": 1,
+        "msg_video_cover": "src/cover2.png",
+        "msg_video_src": "src/video2.mp4",
+        "msg_content": "",
+        "msg_reply_choice": false
+    },{
+        "msg_type": 1,
+        "msg_from": 1,
+        "msg_video_cover": "",
+        "msg_content": "鸡汁如我～出门在外不懂英文靠猜啦！Spices就是辣嘛～是吧~",
+        "msg_reply_choice": true,
+        "msg_reply": [{
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "哈哈～ Spices是香料或调味品啦～",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "额~请不要拆穿我~emoji2",
+                "msg_reply_choice": false
+            }]
+        }, {
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "鸡汁如你~",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 2,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_img": "src/hair.gif",
+                "msg_content": "",
+                "msg_reply_choice": false
+            }]
+        }]
+    },{
+        "msg_type": 1,
+        "msg_from": 1,
+        "msg_video_cover": "",
+        "msg_content": "泰国有种非常好吃的海苔，给你看~",
+        "msg_reply_choice": false
+    },{
+        "msg_type": 3,
+        "msg_from": 1,
+        "msg_video_cover": "src/cover3.png",
+        "msg_video_src": "src/video3.mp4",
+        "msg_content": "",
+        "msg_reply_choice": false
+    },{
+        "msg_type": 1,
+        "msg_from": 1,
+        "msg_video_cover": "",
+        "msg_content": "哈哈～糗了........ 英文不好，你知道big roll 什么意思吗 ？",
+        "msg_reply_choice": true,
+        "msg_reply": [{
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "big roll 大卷呗！",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "真的吗？我真的信了喔～ ",
+                "msg_reply_choice": false
+            }]
+        }, {
+            "msg_type": 1,
+            "msg_from": 2,
+            "msg_video_cover": "",
+            "msg_content": "欸...… 你猜～",
+            "msg_reply_choice": true,
+            "msg_reply": [{
+                "msg_type": 1,
+                "msg_from": 1,
+                "msg_video_cover": "",
+                "msg_content": "你也不会......是吗？",
+                "msg_reply_choice": false
+            }]
+        }]
+    },{
+        "msg_type": 1,
+        "msg_from": 1,
+        "msg_video_cover": "",
+        "msg_content": "今天真的真的好开心～～  谢谢你哦！发你发个大！红！包！emoji3",
+        "msg_reply_choice": false
+    },{
+        "msg_type": 2,
+        "msg_from": 1,
+        "msg_img": "src/redbag.jpg",
+        "msg_video_cover": "",
+        "msg_content": "",
+        "msg_reply_choice": false
+    }]
+}
