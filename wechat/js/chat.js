@@ -1,20 +1,20 @@
 $(function() {
     // 防止全局污染，可能对页面上的其他 js 代码造成冲突
-    var winH, footH, diffH = 0,
+    var winH, footH,
         msgArr = [],
         i = 0,
-        saw,
-        myScroll, sound = document.getElementById('sound'),
-        video, replyHtml, msgTimer;
-
+        saw, myScroll,
+        sound = document.getElementById('sound'),
+        popBox = document.getElementById('pop-box'),
+        video, replyHtml, msgTimer, msgReplyFriendArr = [],
+        msgReplyMyArr = [];
 
     window.onload = function() {
-        showDateTime();
-        winH = $(window).height();
         // 视口高度
+        winH = $(window).height();
         footH = $('.footer').height();
         $("#main").height(winH - footH - 10);
-
+        showDateTime();
         myScroll = new IScroll('#main', {
             preventDefault: false,
         });
@@ -33,26 +33,19 @@ $(function() {
         }, 500);
     }
 
-
     function readyChat() {
-        // 1.欧弟：萨瓦迪卡！我是欧弟，我现在在泰国～～泰国好美啊
         $.get("json/msg_list.json", function(d) {
             msgArr = d.wordList;
             startChat();
         });
-
     }
 
     function startChat() {
-        var msgReplyFriendArr = [],
-            msgReplyMyArr = [];
         var randomTime = Math.floor(Math.random() * 1000) + 2000;
-        // console.log('randomTime', randomTime);
+
         msgTimer = setInterval(function() {
             // 发完
-            // console.log(i, msgArr[i]);
             if (!msgArr[i]) {
-                //console.log('over', msgArr[i]);
                 clearInterval(msgTimer);
                 return;
             }
@@ -61,62 +54,43 @@ $(function() {
             var msgReplyChoice = msgArr[i].msg_reply_choice;
             var msgType = msgArr[i].msg_type;
             //对话
-            //console.log(msgReplyChoice)
             if (msgReplyChoice) {
                 msgReplyMyArr = msgArr[i].msg_reply;
-                //console.log('对话', msgReplyMyArr);
                 if (msgReplyMyArr && msgReplyMyArr.length > 0) {
                     $('#pop-box').empty();
                     // 弹出选项 
-                    replyHtml = '';
-                    for (var j = 0, len = msgReplyMyArr.length; j < len; j++) {
-                        // 都是文本消息
-                        //text = emoji(text);
-                        if (j == 0) {
-                            replyHtml += '<div data-id="' + j + '" class="btn active">' + emoji(msgReplyMyArr[j].msg_content) + '</div>'; //;
-                        } else {
-                            replyHtml += '<div data-id="' + j + '" class="btn ">' + emoji(msgReplyMyArr[j].msg_content) + '</div>'; //;
-                        }
-                    }
-                    // console.log(replyHtml);
+                    replyHtml = myChoiceHTML(msgReplyMyArr);
                     $('#pop-box').append(replyHtml);
                     if (msgType != 3) {
                         setTimeout(function() {
                             showPopup();
                         }, 2400);
                     }
-
-                    popH = $('#pop-box').height();
-                    //console.log('popH', popH);
-
-                    $('#pop-box .btn').on('touchstart', function() {
-                        var contentPreH = $('#content').css('height');
-
-                        var id = $(this).attr('data-id');
-                        var myTextHtml = myText(msgReplyMyArr[id].msg_content);
-                        $('#pop-box').removeClass('pop-up');
-                        $('#content').append(myTextHtml);
-
-                        scrollTop();
-
-                        msgReplyFriendArr = msgReplyMyArr[id].msg_reply;
-                        setTimeout(function() {
-                            showMsg(msgReplyFriendArr[0]);
-                            i++;
-                            startChat();
-                        }, 1000);
-                        $(this).unbind();
-
-                    })
                 }
                 clearInterval(msgTimer);
             } else {
                 i++;
-                // console.log(2, i);
             }
         }, randomTime);
 
     }
+    // delegate live 效果等价，不能阻止冒泡
+    popBox.addEventListener('click', function(evt) {
+        var id = evt.target.getAttribute('data-id');
+        if (id == null) {
+            return;
+        }
+        var myTextHtml = myText(msgReplyMyArr[id].msg_content);
+        $('#pop-box').removeClass('pop-up');
+        $('#content').append(myTextHtml);
+        scrollTop();
+        msgReplyFriendArr = msgReplyMyArr[id].msg_reply;
+        setTimeout(function() {
+            showMsg(msgReplyFriendArr[0]);
+            i++;
+            startChat();
+        }, 1000);
+    }, true);
 
     function showMsg(msgObj) {
         var contentPreH = $('#content').css('height');
@@ -127,16 +101,10 @@ $(function() {
 
         var html = '';
         if (msgFrom == 1) {
-            if (msgType == 1) {
-                var msgContent = msgObj.msg_content;
-                html = friendText(msgContent);
-            } else if (msgType == 3) {
-                html = friendVideo(msgObj);
+            if (msgType == 3) {
                 clearInterval(msgTimer);
-            } else if (msgType == 2) {
-                var msgImg = msgObj.msg_img;
-                html = friendImg(msgImg);
             }
+            html = friendMsg(msgObj);
         }
         // 消息语音
         $('#content').append(html);
@@ -145,22 +113,23 @@ $(function() {
         setTimeout(function() {
             sound.play();
         }, 100)
-
-        if (msgType == 3) {
-            $('.box-video').on('click', function() {
-                var img = $(this).children().get(0);
-                var videoSrc = $(this).attr('data-src');
-                $('.full-img').attr('src', img.src);
-                $('.full-video').attr('src', videoSrc);
-                $('.full-video').attr('poster', img.src);
-                $('.full-box').show();
-                video = document.getElementById('full_video');
-                video.play();
-                // 播放视频停止对话
-
-            });
-        }
     }
+
+    $('.box-video').live('click', function() {
+        var img = $(this).children().get(0);
+        var videoSrc = $(this).attr('data-src');
+        video = document.getElementById('full_video');
+        if (video != null) {
+            $('.full-video').attr('src', videoSrc);
+            $('.full-video').attr('poster', img.src);
+        } else {
+            $('.full-box').append('<video src="' + videoSrc + '" poster="' + img.src + '" controls preload="auto" class="full-video" id="full_video"></video>');
+            video = document.getElementById('full_video');
+        }
+        $('.full-box').show();
+        video.play();
+    });
+
     $('.close').on('click', function() {
         $('.full-box').hide();
         video.pause();
@@ -173,17 +142,11 @@ $(function() {
             setTimeout(function() {
                 showPopup();
             }, 100);
-            // sessionStorage.setItem('video-1', 1);
             saw = true;
         } else {
-            // i++;
-            // console.log(3, i);
             startChat();
         }
-
     })
-
-
 
     function showPopup() {
         $('#pop-box').addClass('pop-up');
@@ -201,42 +164,26 @@ $(function() {
         }, 0);
     }
 
-    function showInput() {
-        var input = document.getElementById('input');
-        input.onfocus = function() {
-            setTimeout(function() {
-                input.scrollIntoView(true);
-            }, 100);
+    function friendMsg(msgObj) {
+        // 消息类型解耦
+        var msgType = msgObj.msg_type;
+        var html = '<div class="box friend-box"><img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">';
+        if (msgType == 1) {
+            text = emoji(msgObj.msg_content);
+            html += '<div class="friend-text box-content">' + text + '</div></div>';
+        } else if (msgType == 2) {
+            var imgClass = msgObj.msg_img.indexOf('gif') == -1 ? 'img-redbag' : 'img-gif';
+            html += '<div class="box-img "><img src="' + msgObj.msg_img + '" alt="" class="friend-img ' + imgClass + '"></div></div>';
+        } else {
+            var msgVideoSrc = msgObj.msg_video_src;
+            var msgVideoCover = msgObj.msg_video_cover;
+            html += '<div class="box-video" data-src="' + msgVideoSrc + '">' +
+                '<img src="' + msgVideoCover + '" alt="" class="video-cover">' +
+                '<img src="http://7xot92.com1.z0.glb.clouddn.com/play_btn.png" alt="" class="video-play-btn">' +
+                '</div>' +
+                '</div>';
         }
-    }
-
-    function friendText(text) {
-        // 处理表情gif
-        text = emoji(text);
-        return '<div class="box friend-box">' +
-            '<img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
-            '<div class="friend-text box-content">' + text + '</div>' +
-            '</div>';
-    }
-
-    function friendImg(src) {
-        var imgClass = src.indexOf('gif') == -1 ? 'img-redbag' : 'img-gif';
-        return '<div class="box friend-box">' +
-            '<img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
-            '<div class="box-img "><img src="' + src + '" alt="" class="friend-img ' + imgClass + '"></div>' +
-            '</div>';
-    }
-
-    function friendVideo(msgObj) {
-        var msgVideoCover = msgObj.msg_video_cover;
-        var msgVideoSrc = msgObj.msg_video_src;
-        return '<div class="box friend-box">' +
-            '<img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
-            '<div class="box-video" data-src="' + msgVideoSrc + '">' +
-            '<img src="' + msgVideoCover + '" alt="" class="video-cover">' +
-            '<img src="http://7xot92.com1.z0.glb.clouddn.com/play_btn.png" alt="" class="video-play-btn">' +
-            '</div>' +
-            '</div>';
+        return html;
     }
 
     function myText(text) {
@@ -246,6 +193,20 @@ $(function() {
             '<img src="http://7xot92.com1.z0.glb.clouddn.com/avatar.jpg" alt="" class="box-avatar my-avatar">' +
             '<div class="my-text box-content">' + text + '</div>' +
             '</div>';
+    }
+
+    function myChoiceHTML(arr) {
+        var replyHtml = '';
+        for (var j = 0, len = arr.length; j < len; j++) {
+            // 都是文本消息
+            //text = emoji(text);
+            if (j == 0) {
+                replyHtml += '<div data-id="' + j + '" class="btn active">' + emoji(arr[j].msg_content) + '</div>'; //;
+            } else {
+                replyHtml += '<div data-id="' + j + '" class="btn ">' + emoji(arr[j].msg_content) + '</div>'; //;
+            }
+        }
+        return replyHtml;
     }
 
     function emoji(text) {
@@ -271,9 +232,8 @@ $(function() {
         if (index == 0) return 0;
         return pos;
     }
-
-    
 })
+
 function musicInWeixinHandler() {
     // 一般浏览器
     sound.play();
