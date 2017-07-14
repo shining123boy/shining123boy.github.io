@@ -8,8 +8,8 @@
     }, {
         "msg_type": 3,
         "msg_from": 1,
-        "msg_video_cover": "src/cover1.png",
-        "msg_video_src": "src/video1.mp4",
+        "msg_video_cover": "http://7xot92.com1.z0.glb.clouddn.com/cover1.png",
+        "msg_video_src": "http://7xot92.com1.z0.glb.clouddn.com/video1.mp4",
         "msg_content": "",
         "msg_reply_choice": true,
         "msg_reply": [{
@@ -75,8 +75,8 @@
     },{
         "msg_type": 3,
         "msg_from": 1,
-        "msg_video_cover": "src/cover2.png",
-        "msg_video_src": "src/video2.mp4",
+        "msg_video_cover": "http://7xot92.com1.z0.glb.clouddn.com/cover2.png",
+        "msg_video_src": "http://7xot92.com1.z0.glb.clouddn.com/video2.mp4",
         "msg_content": "",
         "msg_reply_choice": false
     },{
@@ -108,7 +108,7 @@
                 "msg_type": 2,
                 "msg_from": 1,
                 "msg_video_cover": "",
-                "msg_img": "src/hair.gif",
+                "msg_img": "http://7xot92.com1.z0.glb.clouddn.com/hair.gif",
                 "msg_content": "",
                 "msg_reply_choice": false
             }]
@@ -122,8 +122,8 @@
     },{
         "msg_type": 3,
         "msg_from": 1,
-        "msg_video_cover": "src/cover3.png",
-        "msg_video_src": "src/video3.mp4",
+        "msg_video_cover": "http://7xot92.com1.z0.glb.clouddn.com/cover3.png",
+        "msg_video_src": "http://7xot92.com1.z0.glb.clouddn.com/video3.mp4",
         "msg_content": "",
         "msg_reply_choice": false
     },{
@@ -168,7 +168,7 @@
     },{
         "msg_type": 2,
         "msg_from": 1,
-        "msg_img": "src/redbag.jpg",
+        "msg_img": "http://7xot92.com1.z0.glb.clouddn.com/redbag.jpg",
         "msg_video_cover": "",
         "msg_content": "",
         "msg_reply_choice": false

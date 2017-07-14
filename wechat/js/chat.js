@@ -1,6 +1,6 @@
 var winH, footH, diffH = 0,
     msgArr = [],
-    i = 0,
+    i = 0,saw,
     myScroll, sound = document.getElementById('sound'),
     video, replyHtml;
 
@@ -159,13 +159,15 @@ function showMsg(msgObj) {
             $('.full-box').hide();
             video.pause();
             if ($('.box-video').attr('data-src').indexOf('video1') != -1) {
-                var isPlayed = sessionStorage.getItem('video-1');
+                //saw
+                //var isPlayed = sessionStorage.getItem('video-1');
                 // console.log($('.box-video').attr('data-src'),isPlayed);
-                if(isPlayed){
+                if(saw){
                     return;
                 }
                 showPopup();
-                sessionStorage.setItem('video-1', 1);
+                // sessionStorage.setItem('video-1', 1);
+                saw = true;
             }
             // video.src = '';
             // 弹出选择
@@ -201,7 +203,7 @@ function friendText(text) {
     // 处理表情gif
     text = emoji(text);
     return '<div class="box friend-box">' +
-        '<img src="src/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
+        '<img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
         '<div class="friend-text box-content">' + text + '</div>' +
         '</div>';
 }
@@ -209,8 +211,8 @@ function friendText(text) {
 function friendImg(src) {
     var imgClass = src.indexOf('gif') == -1 ? 'img-redbag' : 'img-gif';
     return '<div class="box friend-box">' +
-        '<img src="src/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
-        '<div class="box-img ' + imgClass + '"><img src="' + src + '" alt="" class="friend-img"></div>' +
+        '<img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
+        '<div class="box-img "><img src="' + src + '" alt="" class="friend-img ' + imgClass + '"></div>' +
         '</div>';
 }
 
@@ -218,10 +220,10 @@ function friendVideo(msgObj) {
     var msgVideoCover = msgObj.msg_video_cover;
     var msgVideoSrc = msgObj.msg_video_src;
     return '<div class="box friend-box">' +
-        '<img src="src/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
+        '<img src="http://7xot92.com1.z0.glb.clouddn.com/oudi.jpg" alt="" class="box-avatar friend-avatar">' +
         '<div class="box-video" data-src="' + msgVideoSrc + '">' +
         '<img src="' + msgVideoCover + '" alt="" class="video-cover">' +
-        '<img src="src/play_btn.png" alt="" class="video-play-btn">' +
+        '<img src="http://7xot92.com1.z0.glb.clouddn.com/play_btn.png" alt="" class="video-play-btn">' +
         '</div>' +
         '</div>';
 }
@@ -230,7 +232,7 @@ function myText(text) {
     // 处理表情gif
     text = emoji(text);
     return '<div class="box my-box">' +
-        '<img src="src/avatar.jpg" alt="" class="box-avatar my-avatar">' +
+        '<img src="http://7xot92.com1.z0.glb.clouddn.com/avatar.jpg" alt="" class="box-avatar my-avatar">' +
         '<div class="my-text box-content">' + text + '</div>' +
         '</div>';
 }
@@ -241,7 +243,7 @@ function emoji(text){
     if(result && result.length>0){
         var index = result[1];
         var pos = fixedPos(index);
-        var eHtml = '<i class="emoji" style="background-position:0 -'+pos+'px"></i>';
+        var eHtml = '<i class="emoji" style="background-position:0 -'+pos+'rem"></i>';
         text = text.replace(reg, eHtml);
     }
     return text;
@@ -249,11 +251,11 @@ function emoji(text){
 /*自动播放*/
 function fixedPos(index){
     var pos = 0;
-    if(index==5) return 86;
-    if(index==4) return 69;
-    if(index==3) return 52;
-    if(index==2) return 35;
-    if(index==1) return 18;
+    if(index==5) return 4.3;
+    if(index==4) return 3.45;
+    if(index==3) return 2.6;
+    if(index==2) return 1.75;
+    if(index==1) return 0.9;
     if(index==0) return 0;
     return pos;
 }

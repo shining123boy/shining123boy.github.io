@@ -168,7 +168,7 @@ body {
         position: relative;
         .emoji{
             display: inline-block;
-            background:url(../src/bq.jpg) no-repeat;
+            background:url(http://7xot92.com1.z0.glb.clouddn.com/bq.jpg) no-repeat;
             background-size:100%;
             width: 0.85rem;
             height: 0.85rem;
@@ -190,13 +190,13 @@ body {
     }
     .box-video {
         margin-left: 0.25rem;
-        border-radius: 0.3rem;
         display: inline-block;
         position: relative;
         .video-cover {
-            width: 12.65rem;
-            height: 7.5rem;
-            -webkit-mask-image: url(../src/mask.png);
+            border-radius: 0.3rem;
+            width: 253px;
+            height: 150px;
+            -webkit-mask-image: url(http://7xot92.com1.z0.glb.clouddn.com/mask.png);
             vertical-align: top;
         }
         .video-play-btn {
@@ -223,7 +223,7 @@ body {
 
         &:before {
             left: -0.275rem;
-            background-image: url(../src/friend_text_corner.png);
+            background-image: url(http://7xot92.com1.z0.glb.clouddn.com/friend_text_corner.png);
         }
     }
     .friend-img {
@@ -254,7 +254,7 @@ body {
         margin-right: .5rem;
         &:before {
             right: -0.275rem;
-            background-image: url(../src/my_text_corner.png);
+            background-image: url(http://7xot92.com1.z0.glb.clouddn.com/my_text_corner.png);
         }
     }
 }
