@@ -1,13 +1,11 @@
-$(function() {
-    // 防止全局污染，可能对页面上的其他 js 代码造成冲突
-    var winH, footH,
-        msgArr = [],
-        i = 0,
-        saw, myScroll,
+(function() {
+    // 沙箱，防止全局污染，可能对页面上的其他 js 代码造成冲突
+    var 
         sound = document.getElementById('sound'),
-        popBox = document.getElementById('pop-box'),
-        video, replyHtml, msgTimer, msgReplyFriendArr = [],
-        msgReplyMyArr = [];
+    	msgArr = [],msgReplyMyArr = [],msgReplyFriendArr = [],
+        $content = $('#content'),
+        $popBox = $('#pop-box'),
+    	winH, footH,i = 0,saw,saw2,saw3, myScroll,video, replyHtml, msgTimer;
 
     window.onload = function() {
         // 视口高度
@@ -24,10 +22,10 @@ $(function() {
     function showDateTime() {
         setTimeout(function() {
             var dateTime = '<div><span class="text-bg date-time">2017年5月20日 10:50:41</span></div>';
-            $('#content').append(dateTime);
+            $content.append(dateTime);
             setTimeout(function() {
                 var addFinished = '<div class="text-bg add-finish-tip">你已经添加了欧弟，现在可以聊天了</div>';
-                $('#content').append(addFinished);
+                $content.append(addFinished);
                 readyChat();
             }, 800);
         }, 500);
@@ -57,10 +55,10 @@ $(function() {
             if (msgReplyChoice) {
                 msgReplyMyArr = msgArr[i].msg_reply;
                 if (msgReplyMyArr && msgReplyMyArr.length > 0) {
-                    $('#pop-box').empty();
+                    $popBox.empty();
                     // 弹出选项 
                     replyHtml = myChoiceHTML(msgReplyMyArr);
-                    $('#pop-box').append(replyHtml);
+                    $popBox.append(replyHtml);
                     if (msgType != 3) {
                         setTimeout(function() {
                             showPopup();
@@ -75,14 +73,14 @@ $(function() {
 
     }
     // delegate live 效果等价，不能阻止冒泡
-    popBox.addEventListener('click', function(evt) {
+    $popBox[0].addEventListener('click', function(evt) {
         var id = evt.target.getAttribute('data-id');
         if (id == null) {
             return;
         }
         var myTextHtml = myText(msgReplyMyArr[id].msg_content);
-        $('#pop-box').removeClass('pop-up');
-        $('#content').append(myTextHtml);
+        $popBox.removeClass('pop-up');
+        $content.append(myTextHtml);
         scrollTop();
         msgReplyFriendArr = msgReplyMyArr[id].msg_reply;
         setTimeout(function() {
@@ -93,7 +91,7 @@ $(function() {
     }, true);
 
     function showMsg(msgObj) {
-        var contentPreH = $('#content').css('height');
+        var contentPreH = $content.css('height');
         // 发消息的人
         var msgFrom = msgObj.msg_from;
         // 消息类型 1文本 2图片 3视频
@@ -107,7 +105,10 @@ $(function() {
             html = friendMsg(msgObj);
         }
         // 消息语音
-        $('#content').append(html);
+        $content.append(html);
+        setTimeout(function(){
+        	$('.friend-box').addClass('opacity-animate');
+        },0);
 
         scrollTop();
         setTimeout(function() {
@@ -116,25 +117,29 @@ $(function() {
     }
 
     $('.box-video').live('click', function() {
-        var img = $(this).children().get(0);
-        var videoSrc = $(this).attr('data-src');
+
+        var img = $(this).children().get(0),
+        	videoSrc = $(this).attr('data-src'),
+        	$fullBox = $('.full-box');
         video = document.getElementById('full_video');
         if (video != null) {
-            $('.full-video').attr('src', videoSrc);
-            $('.full-video').attr('poster', img.src);
+        	$fullVideo = $('.full-video');
+            $fullVideo.attr('src', videoSrc);
+            $fullVideo.attr('poster', img.src);
         } else {
-            $('.full-box').append('<video src="' + videoSrc + '" poster="' + img.src + '" controls preload="auto" class="full-video" id="full_video"></video>');
+            $fullBox.append('<video src="' + videoSrc + '" poster="' + img.src + '" controls preload="auto" class="full-video" id="full_video"></video>');
             video = document.getElementById('full_video');
         }
-        $('.full-box').show();
+        $fullBox.show();
         video.play();
+        // $(this).data('played',{});
     });
 
     $('.close').on('click', function() {
         $('.full-box').hide();
         video.pause();
         var dataSrc = $('.full-video').attr('src');
-        // console.log(dataSrc);
+        
         if (dataSrc.indexOf('video1') != -1) {
             if (saw) {
                 return;
@@ -143,19 +148,29 @@ $(function() {
                 showPopup();
             }, 100);
             saw = true;
-        } else {
+        } else if(dataSrc.indexOf('video2') != -1){
+        	if (saw2){
+        		return;
+        	}
+        	saw2 = true;
             startChat();
+        } else {
+    		if (saw3){
+    			return;
+    		}
+    		saw3 = true;
+    	    startChat();
         }
     })
 
     function showPopup() {
-        $('#pop-box').addClass('pop-up');
+        $popBox.addClass('pop-up');
     }
 
     function scrollTop() {
         setTimeout(function() {
             myScroll.refresh();
-            var curH = $('#content').height();
+            var curH = $content.height();
             var cliH = winH - footH - 10;
             var diffH = curH - cliH;
             if (curH > cliH) {
@@ -232,7 +247,7 @@ $(function() {
         if (index == 0) return 0;
         return pos;
     }
-})
+})();
 
 function musicInWeixinHandler() {
     // 一般浏览器

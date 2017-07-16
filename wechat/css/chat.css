@@ -63,7 +63,6 @@ body {
   .main .content {
     position: absolute;
     width: 100%;
-    padding-bottom: 150px;
     /* Prevent elements to be highlighted on tap */
     -webkit-tap-highlight-color: transparent;
     /* Put the scroller into the HW Compositing layer right from the start */
@@ -93,19 +92,20 @@ body {
   margin-left: -46.5%;
   border-radius: 0.5rem;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #dadada;
   text-align: center;
   font-size: 0.75rem;
   padding-top: 1.75rem;
   opacity: 0;
   bottom: -100px;
-  transition: all 0.3s ease; }
+  transition: all 0.3s ease;
+  visibility: hidden; }
   .pop-box .btn {
     display: block;
     width: 85.6%;
     margin: 0 auto;
     padding: 0.75rem 0.4rem;
-    border: 1px solid #ccc;
+    border: 1px solid #dadada;
     -webkit-border-radius: 0.3em;
     -moz-border-radius: 0.3em;
     border-radius: 0.3em;
@@ -120,11 +120,12 @@ body {
     .pop-box .btn:focus {
       color: #000; }
   .pop-box .active {
-    border: 1px solid #7fb25a;
+    border: 1px solid #9FCD84;
     background: #afe56e; }
 
 .pop-up {
   transform: translateY(-111px);
+  visibility: visible;
   opacity: 1; }
 
 .box {
@@ -135,7 +136,6 @@ body {
     width: 2rem;
     height: 2rem; }
   .box .box-content {
-    border: 1px solid #ccc;
     padding: 0.6rem 0.5rem;
     -webkit-border-radius: 0.3em;
     -moz-border-radius: 0.3em;
@@ -179,15 +179,26 @@ body {
       left: 50%;
       margin-top: -1.25rem;
       margin-left: -1.25rem; }
+    .box .box-video .hide-video {
+      display: none; }
+    .box .box-video .show-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 253px;
+      height: 150px; }
 
 .friend-box {
   padding-left: 0.5rem;
-  text-align: left; }
+  text-align: left;
+  opacity: 0.3; }
   .friend-box .friend-avatar {
     float: left; }
   .friend-box .friend-text {
     margin-left: .5rem;
-    background: #fff; }
+    background: #fff;
+    border: 1px solid #dadada; }
     .friend-box .friend-text:before {
       left: -0.275rem;
       background-image: url(http://7xot92.com1.z0.glb.clouddn.com/friend_text_corner.png); }
@@ -201,6 +212,11 @@ body {
   .friend-box .friend-video {
     width: 12.3rem; }
 
+.opacity-animate {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s ease-out;
+  transition: opacity 0.3s ease-out; }
+
 .my-box {
   padding-right: 0.5rem;
   text-align: left;
@@ -210,7 +226,8 @@ body {
   .my-box .my-text {
     background-color: #afe56e;
     float: right;
-    margin-right: .5rem; }
+    margin-right: .5rem;
+    border: 1px solid #9FCD84; }
     .my-box .my-text:before {
       right: -0.275rem;
       background-image: url(http://7xot92.com1.z0.glb.clouddn.com/my_text_corner.png); }
