@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>操作样式表</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+    @import url(../css/common.css);
+    </style>
+    <style>
+    body {
+        background: lightgreen;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box" style="font-size:20px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus consequatur laborum libero, et suscipit odit nisi, aut placeat optio ullam voluptatum asperiores praesentium maxime in provident. Nam doloremque explicabo, necessitatibus.</div>
+    <script>
+    // stylesheet 数组
+    var sheet = document.styleSheets;
+    console.log(sheet);
+    // stylesheet
+    var link = document.getElementsByTagName('link')[0]; 
+    console.log(getStyleSheet(link));
+
+    // 兼容ie
+    function getStyleSheet(elem){
+    	return elem.sheet || elem.styleSheet;
+    }
+
+    </script>
+</body>
+
+</html>
